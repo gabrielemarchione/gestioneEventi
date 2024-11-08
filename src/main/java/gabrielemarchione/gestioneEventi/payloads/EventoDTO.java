@@ -16,7 +16,7 @@ public record EventoDTO(
         LocalDate data_evento,
         @NotEmpty(message = "Il luogo dell'evento è obbligatorio!")
         @Size(min = 3, max = 100, message = "Il luogo dell'evento deve contenere dai 3 ai 100 caratteri")
-        String luogo_evento,
+        String luogo,
         @Positive(message = "Il numero di posti disponibili deve essere positivo")
         int posti_disponibili) {
 
