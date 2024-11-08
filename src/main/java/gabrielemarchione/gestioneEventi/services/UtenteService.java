@@ -27,13 +27,13 @@ public class UtenteService {
     public Utente findById(UUID id_utente) {
         return this.utenteRepository.findById(id_utente).orElseThrow(() -> new NotFoundException(id_utente));
     }
-    public Utente saveUtente(UtenteDTO payload) {
+    public Utente saveUtente(UtenteDTO payload) throws BadRequestException {
         if (this.utenteRepository.existsByEmail(payload.email()))
             throw new BadRequestException("La mail è già in uso");
         Utente newUtente = new Utente(payload.nome(), payload.cognome(), payload.email(), payload.username(), payload.password(), payload.ruolo());
         return this.utenteRepository.save(newUtente);
     }
-    public Utente findByIdAndUpdate(UUID id_utente, UtenteDTO payload) {
+    public Utente findByIdAndUpdate(UUID id_utente, UtenteDTO payload) throws BadRequestException {
         Utente utente = this.findById(id_utente);
         if (!utente.getEmail().equals(payload.email())) {
             if (this.utenteRepository.existsByEmail(payload.email()))
